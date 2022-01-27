@@ -7,7 +7,7 @@ It is recommended to use Red Hat Enterprise Linux for the lab environment to mat
 
 ### Quick Start
 
-Clone this repo, install the software listed under Host Requirements below, and run `vagrant up`. Once the machines are up you can ssh to node0: `vagrant ssh node0` and switch to the ansible user: `sudo su - ansible`. The synced folder is located at `/synced`.  
+Clone this repo, install the software listed under Host Requirements below, and run `vagrant up`. Once the machines are up you can ssh to node0: `vagrant ssh node0` and switch to the ansible user: `sudo su - ansible`. The synced folder is located at `/synced`. When you are finished with the environment or if its time for a fresh start, run `ansible-playbook decommision.yaml` to unregister your RHEL8 hosts (if applicable) and tear down the lab. 
 
 ### Host Requirements
 
