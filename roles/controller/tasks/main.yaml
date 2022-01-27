@@ -1,0 +1,20 @@
+---
+- name: RedHat/CentOS specific ansible install
+  include_tasks: "{{ ansible_distribution | lower }}.yaml"
+  when: ansible_os_family == "RedHat"
+  register: no_pip
+
+- name: Pip ansible install
+  include_tasks: pip.yaml
+  when: no_pip is not defined
+
+- name: generate an ssh key pair for ansible
+  ansible.builtin.user:
+    name: ansible
+    generate_ssh_key: yes
+
+- name: retrieve public key
+  ansible.builtin.fetch:
+    src: /home/ansible/.ssh/id_rsa.pub
+    dest: roles/managed/files/id_rsa.pub
+    flat: yes

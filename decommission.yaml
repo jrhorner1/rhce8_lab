@@ -1,0 +1,13 @@
+---
+- hosts: all
+  tasks:
+    - name: remove subscription
+      community.general.redhat_subscription:
+        state: absent
+      when: ansible_distribution == "RedHat"
+
+- hosts: localhost
+  become: false
+  tasks:
+    - name: destroy vagrant machines
+      ansible.builtin.command: vagrant destroy --force

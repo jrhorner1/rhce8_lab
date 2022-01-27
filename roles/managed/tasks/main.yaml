@@ -1,0 +1,5 @@
+---
+- name: copy public key to authorized_keys
+  ansible.posix.authorized_key:
+    user: ansible
+    key: "{{ lookup('file', 'files/id_rsa.pub') }}"

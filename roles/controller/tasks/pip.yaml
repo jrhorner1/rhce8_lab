@@ -1,0 +1,19 @@
+---
+- name: install python pip
+  ansible.builtin.dnf:
+    name: python3-pip
+    state: latest
+
+- name: set python3 as default python
+  community.general.alternatives: 
+    name: python
+    link: /usr/bin/python
+    path: /usr/bin/python3
+
+- name: install ansible
+  ansible.builtin.pip:
+    name: ansible
+    extra_args: --user
+  become: true
+  become_method: su
+  become_user: ansible

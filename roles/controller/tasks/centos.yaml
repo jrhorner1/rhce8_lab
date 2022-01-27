@@ -1,0 +1,10 @@
+---
+- name: install epel-release
+  ansible.builtin.dnf:
+    name: epel-release
+    state: latest
+
+- name: install ansible
+  ansible.builtin.dnf:
+    name: ansible
+    state: latest

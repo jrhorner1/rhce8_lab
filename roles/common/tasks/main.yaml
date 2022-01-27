@@ -1,0 +1,35 @@
+---
+- name: set hostname
+  ansible.builtin.hostname:
+    name: "{{ hostname }}"
+
+- name: create ansible user
+  ansible.builtin.user:
+    name: ansible
+    groups: vagrant
+
+- name: grant ansible user sudo 
+  template: 
+    src: ansible_sudoersd.j2
+    dest: /etc/sudoers.d/ansible
+    owner: root
+    group: root
+    mode: 0440
+
+- name: add all nodes to /etc/hosts
+  template:
+    src: hosts.j2
+    dest: /etc/hosts
+    owner: root
+    group: root
+    mode: 0644
+
+- name: attach to a subscription
+  community.general.redhat_subscription:
+    activationkey: "{{ rhsm_activation_key }}"
+    org_id: "{{ rhsm_org_id }}"
+    syspurpose:
+      usage: "Development/Test"
+      role: "Red Hat Enterprise Linux Server"
+      service_level_agreement: "Self-Support"
+  when: ansible_distribution == "RedHat"
